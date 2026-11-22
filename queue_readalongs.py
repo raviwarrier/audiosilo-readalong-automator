@@ -106,14 +106,15 @@ def api_post_job(
             return True, job_id, f"HTTP {resp.status}: {body[:200]}"
     except socket.timeout as exc:
         raise APITimeoutError(f"Request timed out after {timeout}s") from exc
+    except urllib.error.HTTPError as exc:
+        # HTTPError is a subclass of URLError, so it must be caught first.
+        body = exc.read().decode("utf-8", errors="replace")
+        raise APIError(f"HTTP {exc.code}: {body[:200]}") from exc
     except urllib.error.URLError as exc:
         # Wrap connection-level errors (reason may be socket.timeout too).
         if isinstance(exc.reason, socket.timeout):
             raise APITimeoutError(f"Request timed out after {timeout}s") from exc
         raise APIError(f"Connection error: {exc.reason}") from exc
-    except urllib.error.HTTPError as exc:
-        body = exc.read().decode("utf-8", errors="replace")
-        raise APIError(f"HTTP {exc.code}: {body[:200]}") from exc
 
 
 def _extract_job_id(body: str) -> Optional[str]:
