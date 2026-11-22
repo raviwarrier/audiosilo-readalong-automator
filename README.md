@@ -4,7 +4,7 @@ A small utility for [AudioSilo Server](https://github.com/KodeStar/audiosilo-ser
 
 ## Why
 
-AudioSilo can generate read-along alignments, but you still have to discover which books qualify and submit them one by one. This tool walks your library on the Raspberry Pi, builds a candidate list, and submits jobs in batches — with status tracking so nothing gets submitted twice.
+AudioSilo can generate read-along alignments, but you still have to discover which books qualify and submit them one by one. This tool walks your audiobook library, builds a candidate list, and submits jobs in batches — with status tracking so nothing gets submitted twice.
 
 ## What
 
@@ -50,7 +50,7 @@ All configuration lives in `.env` (git-ignored). Copy `.env.example` and adjust 
 | `AUDIOSILO_LIBRARY_ID` | `1` | Library ID to submit jobs into |
 | `AUDIOBOOK_ROOT` | *(required)* | Host path the scanner walks, e.g. `/srv/ssd/Bookshelf/Audiobooks` |
 | `AUDIOSILO_CONTAINER_LIBRARY` | `/library` | Path AudioSilo sees inside its container (read-only mount) |
-| `MANAGER_DIR` | `/home/pi/readalong-manager` | Directory where scripts and tracking files live |
+| `MANAGER_DIR` | `./readalong-manager` | Directory where scripts and tracking files live |
 | `LOGS_DIR` | `logs` | Log directory, relative to `MANAGER_DIR` |
 | `POTENTIAL_FILE` | `potential-read-alongs.txt` | Candidate list, relative to `MANAGER_DIR` |
 | `NEEDS_EBOOK_FILE` | `needs_ebook.txt` | Audiobooks missing ebooks, relative to `MANAGER_DIR` |
