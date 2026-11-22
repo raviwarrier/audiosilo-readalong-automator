@@ -98,6 +98,7 @@ def api_post_job(
     req = urllib.request.Request(url, data=data, method="POST")
     req.add_header("Content-Type", "application/json")
     req.add_header("Authorization", f"Bearer {token}")
+    req.add_header("User-Agent", "AudioSilo-ReadAlong-Queue/1.0")
 
     try:
         with urllib.request.urlopen(req, timeout=timeout) as resp:
