@@ -39,7 +39,8 @@ from config import (  # noqa: E402
 )
 
 AUDIO_EXTENSIONS = {".m4b", ".mp3", ".opus"}
-EBOOK_EXTENSIONS = {".epub", ".pdf", ".mobi", ".azw3"}
+EPUB_EXTENSIONS = {".epub"}
+OTHER_EBOOK_EXTENSIONS = {".pdf", ".mobi", ".azw3"}
 
 STATUS_NEW = "NEW"
 STATUS_CREATED = "CREATED"
@@ -145,14 +146,21 @@ def classify_folder(folder: Path) -> Optional[str]:
         return None  # parent folder holding only subfolders -> not a book
 
     has_audio = any(f.suffix.lower() in AUDIO_EXTENSIONS for f in direct_files)
-    has_ebook = any(f.suffix.lower() in EBOOK_EXTENSIONS for f in direct_files)
+    has_epub = any(f.suffix.lower() in EPUB_EXTENSIONS for f in direct_files)
+    has_other_ebook = any(f.suffix.lower() in OTHER_EBOOK_EXTENSIONS for f in direct_files)
 
-    if has_audio and has_ebook:
+    # Audiobook + EPUB = potential read-along candidate
+    if has_audio and has_epub:
         return "both"
+
+    # Audiobook with non-EPUB ebook (or no ebook at all) needs an EPUB
     if has_audio:
         return "audio"
-    if has_ebook:
+
+    # Ebook without audiobook needs an audiobook (any ebook format)
+    if has_epub or has_other_ebook:
         return "ebook"
+
     return None
 
 

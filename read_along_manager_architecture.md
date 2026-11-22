@@ -79,8 +79,21 @@ Extension matching is case-insensitive. File count does not matter (one audioboo
 
 | Type | Extensions |
 | :--- | :--- |
-| **Ebook** | `.epub`, `.pdf`, `.mobi`, `.azw3` |
+| **Ebook** (valid for read-along) | `.epub` |
+| **Ebook** (tracked as missing, needs conversion) | `.pdf`, `.mobi`, `.azw3` |
 | **Audiobook** | `.m4b`, `.mp3`, `.opus` |
+
+Classification rules:
+
+| Audiobook | EPUB | Non-EPUB ebook | Classification | Tracking file |
+| :--- | :--- | :--- | :--- | :--- |
+| Yes | Yes | Any | `both` | `potential-read-alongs.txt` |
+| Yes | No | Yes | `audio` | `needs_ebook.txt` |
+| Yes | No | No | `audio` | `needs_ebook.txt` |
+| No | Yes | Any | `ebook` | `needs_abook.txt` |
+| No | No | Yes | `ebook` | `needs_abook.txt` |
+
+Only folders containing an audiobook **and** an `.epub` are added to `potential-read-alongs.txt`. Folders with an audiobook and a non-EPUB ebook (`.pdf`, `.mobi`, `.azw3`) are treated as audiobook-only and added to `needs_ebook.txt`, since the worker requires an EPUB for alignment.
 
 ### C. Output Tracking Files
 
