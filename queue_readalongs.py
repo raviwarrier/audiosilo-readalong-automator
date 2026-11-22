@@ -35,6 +35,7 @@ from config import (  # noqa: E402
     AUDIOSILO_LIBRARY_ID,
     AUDIOSILO_TOKEN,
     AUDIOSILO_URL,
+    API_REQUEST_TIMEOUT,
     BATCH_DELAY,
     BATCH_SIZE,
     LOGS_DIR,
