@@ -72,3 +72,8 @@ MIT License — short and permissive; do whatever you want with it, just keep th
 ## Prerequisite
 
 This utility will not work without a working AudioSilo Server ([KodeStar/audiosilo-server](https://github.com/KodeStar/audiosilo-server)) reachable at `AUDIOSILO_URL`. It is a client-side helper only.
+
+## Troubleshooting
+
+If Cloudflare blocks API requests from `queue_readalongs.py`, see [api_troubleshooting.md](./api_troubleshooting.md) for the root cause, fixes, and verification steps.
+
