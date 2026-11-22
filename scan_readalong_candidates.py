@@ -130,8 +130,13 @@ def classify_folder(folder: Path) -> Optional[str]:
     """Return 'both', 'audio', 'ebook', or None for the given folder.
 
     None means the folder is not a book (no directly-classifiable files or
-    only subfolders).
+    only subfolders), or the read-along has already been completed
+    (.audiosilo marker directory present).
     """
+    # If an .audiosilo marker directory exists, the read-along is complete.
+    if (folder / ".audiosilo").is_dir():
+        return None
+
     try:
         direct_files = [f for f in folder.iterdir() if f.is_file()]
     except OSError:
