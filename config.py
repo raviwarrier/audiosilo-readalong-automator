@@ -112,6 +112,11 @@ AUDIOSILO_URL = get("AUDIOSILO_URL", required=True)
 AUDIOSILO_TOKEN = get("AUDIOSILO_TOKEN", required=True)
 AUDIOBOOK_ROOT = get_path("AUDIOBOOK_ROOT", required=True)
 
+# File extension sets (shared by scanner and targeted queuer)
+AUDIO_EXTENSIONS = {".m4b", ".mp3", ".opus"}
+EPUB_EXTENSIONS = {".epub"}
+OTHER_EBOOK_EXTENSIONS = {".pdf", ".mobi", ".azw3"}
+
 # --- Optional with defaults ------------------------------------------------
 AUDIOSILO_LIBRARY_ID = get_int("AUDIOSILO_LIBRARY_ID", default=1)
 
