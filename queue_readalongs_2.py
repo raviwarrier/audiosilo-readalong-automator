@@ -423,8 +423,8 @@ def _queue(
             rel_path = folder.relative_to(AUDIOBOOK_ROOT).as_posix()
             has_audio, has_epub, _ = classify_folder_for_targeted(folder)
 
-            # Skip if already completed (.audiosilo marker)
-            if (folder / ".audiosilo").is_dir():
+            # Skip if already completed (.audiosilo/readalong.json present)
+            if (folder / ".audiosilo" / "readalong.json").is_file():
                 logger.log(f"SKIP (already completed): {rel_path}")
                 continue
 

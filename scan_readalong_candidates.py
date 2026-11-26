@@ -132,10 +132,12 @@ def classify_folder(folder: Path) -> Optional[str]:
 
     None means the folder is not a book (no directly-classifiable files or
     only subfolders), or the read-along has already been completed
-    (.audiosilo marker directory present).
+    (.audiosilo/readalong.json present).
     """
-    # If an .audiosilo marker directory exists, the read-along is complete.
-    if (folder / ".audiosilo").is_dir():
+    # If an .audiosilo/readalong.json file exists, the read-along is complete.
+    # The .audiosilo folder may also contain chapters.json only, which does
+    # not mean the read-along has been completed.
+    if (folder / ".audiosilo" / "readalong.json").is_file():
         return None
 
     try:
